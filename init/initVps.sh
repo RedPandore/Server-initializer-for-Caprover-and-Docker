@@ -10,37 +10,43 @@ echo -e "${RED}The operation will take some time, please be patient. ${NC}"
 echo -e "${GREEN}Go make yourself a cup of coffee to wait, we doesn't need you anymore. ${NC}"
 sleep 5
 echo -e "${BLUE}Updating ...${NC}"
-sleep 2
-sudo apt update && sudo apt upgrade -y 
-ufw allow 80,443,3000,996,7946,4789,2377/tcp; ufw allow 7946,4789,2377/udp;
-clear
-  echo -e "${BLUE}__________---------- Install Docker ----------__________${NC}"
-  sleep 5
+sudo apt update &>/dev/null
+echo -e "${GREEN}Updating done !${NC}"
+echo -e "${BLUE}Upgrading ...${NC}"
+sudo apt upgrade -y &>/dev/null
+echo -e "${BLUE}Upgrading done !${NC}"
+sudo ufw allow 80,443,3000,996,7946,4789,2377/tcp
+sudo ufw allow 7946,4789,2377/udp
+echo -e "${BLUE}__________---------- Remove old installation ----------__________${NC}"
 sudo apt-get remove docker docker-engine docker.io containerd runc -y
-
-sudo apt-get install -y\
-    ca-certificates -y\
-    curl -y\
-    gnupg -y\
-    lsb-release -y
-
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
+echo -e "${BLUE}__________---------- Done ----------__________${NC}"
+echo -e "${BLUE}__________---------- Install dependency ----------__________${NC}"
+sudo apt-get install -y ca-certificates -y curl -y gnupg -y lsb-release -y
+echo -e "${BLUE}__________---------- Done ----------__________${NC}"
+echo -e "${BLUE}__________---------- Download Docker ----------__________${NC}"
+################ ERROR WITH GPG ################
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg  --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+################ ERROR WITH GPG ################
+echo -e "${BLUE}__________---------- Done ----------__________${NC}"
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get install docker-ce docker-ce-cli containerd.io #Uncomment before upload &>/dev/null
+
 clear
 echo -e "${GREEN}__________---------- Docker installed ----------__________${NC}"
-sleep 5
+sleep 3
 echo -e "${BLUE}__________---------- Install CapRover ----------__________${NC}"
-sleep 5
+sleep 3
 docker run -p 80:80 -p 443:443 -p 3000:3000 -v /var/run/docker.sock:/var/run/docker.sock -v /captain:/captain caprover/caprover
 clear
 echo -e "${GREEN}__________---------- CapRover installed ----------__________${NC}"
-sleep 10
-sudo apt-get autoremove -y
+sleep 3
+echo -e "${BLUE}__________---------- Cleaning ----------__________${NC}"
+sudo apt-get autoremove -y &>/dev/null
+echo -e "${GREEN}__________---------- Done ! ----------__________${NC}"
+sleep 3
 clear
 echo -e "${GREEN} You can now access to http://[IP_OF_YOUR_SERVER]:3000 with password : captain42 ${RED}/!\ Don't modify anything now !!${NC}"
 echo -e "${GREEN} Let's setup you'r caprover instance with caprover CLI by using 'caprover serversetup' on you'r local computer.${NC}"
