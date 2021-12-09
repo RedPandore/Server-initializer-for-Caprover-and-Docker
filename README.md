@@ -6,8 +6,7 @@ I create this little script to save my time when I initialize a VPS with Caprove
 
 ## Prerequisite
 
-1 - You need a VPS with an access ssh (Password or ssh key)
-
+1 - You need to have access (Password or ssh key) to a VPS with (ubuntu 18.04) 
 2 - You need ssh-agent on you'r machine
 ## Installation
 

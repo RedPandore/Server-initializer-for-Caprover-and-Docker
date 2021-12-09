@@ -23,6 +23,7 @@ while true; do
         echo -e "${GREEN}File transfered!${NC}"
         echo -e "${BLUE}Connecting...${NC}"
         ssh $varname@$varip "sudo chmod +x initVps.sh && bash initVps.sh"
+        exec bash init/initPc.sh
         break
         ;;
     [nN][oO] | [nN])
