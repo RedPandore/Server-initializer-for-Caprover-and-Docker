@@ -24,9 +24,7 @@ echo -e "${BLUE}__________---------- Install dependency ----------__________${NC
 sudo apt-get install -y ca-certificates -y curl -y gnupg -y lsb-release -y
 echo -e "${BLUE}__________---------- Done ----------__________${NC}"
 echo -e "${BLUE}__________---------- Download Docker ----------__________${NC}"
-################ ERROR WITH GPG ################
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg  --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-################ ERROR WITH GPG ################
 echo -e "${BLUE}__________---------- Done ----------__________${NC}"
 echo \
     "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
